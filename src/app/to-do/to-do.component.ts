@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { empty, Observable, Subject } from 'rxjs';
-import { catchError } from 'rxjs/operators';
+import { EMPTY, Observable, Subject } from 'rxjs';
+import { catchError, switchMap, take } from 'rxjs/operators';
 import { Router, ActivatedRoute } from "@angular/router"
 
 import { AlertModalService } from '../shared/services/alert-modal.service';
 import { ToDo } from './to-do';
-import { ToDoService } from './to-do.service';
+import { BsModalRef } from 'ngx-bootstrap/modal';
+import { ToDo2Service } from './to-do2.service';
 
 @Component({
   selector: 'app-to-do',
@@ -16,12 +17,13 @@ export class ToDoComponent implements OnInit {
 
   toDos$!: Observable<ToDo[]>;
   error$ = new Subject<boolean>();
+  deleteModalRaf!: BsModalRef;
 
   constructor(
-    private _toDoService: ToDoService,
+    private _toDoService: ToDo2Service,
     private _alertService: AlertModalService,
     private _router: Router,
-    private _route: ActivatedRoute
+    private _route: ActivatedRoute,
   ) { }
 
   ngOnInit(): void {
@@ -42,8 +44,20 @@ export class ToDoComponent implements OnInit {
     return '';
   }
 
-  onRemove(){
-    console.log(this.toDos$)
+  onRemove(toDo: ToDo){
+    const result$ = this._alertService.showConfirm("Confirmação", "Tem certeza que deseja remover o ToDo?")
+    result$.asObservable().pipe(
+      take(1),
+      switchMap(result => result ? this._toDoService.remove(toDo.id) : EMPTY)
+      ) 
+      .subscribe(
+        success => {
+          this.onRefresh()
+        },
+        erro => {
+          this._alertService.showAlertDanger("Erro ao remover ToDo, tente depois."
+          )},
+      )
   }
 
   onRefresh(){
@@ -51,7 +65,7 @@ export class ToDoComponent implements OnInit {
     .pipe(
       catchError((error) => {
         this._alertService.showAlertDanger("Erro ao carregar TO-DOs, tente novamente mais tarde.")
-        return empty();
+        return EMPTY;
       })
     );
   }
@@ -62,7 +76,6 @@ export class ToDoComponent implements OnInit {
   }
 
   onEdit(id:number=0){
-    console.log(id)
     this._router.navigate(['edit', id], { relativeTo: this._route })
   }
 

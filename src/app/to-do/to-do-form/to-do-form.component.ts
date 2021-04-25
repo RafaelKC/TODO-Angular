@@ -1,13 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AlertModalService } from '../../shared/services/alert-modal.service';
 import { Location } from '@angular/common';
 
 
-import { ToDoService } from '../to-do.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, } from '@angular/router';
 import { ToDo } from '../to-do';
-import { catchError, map, switchMap } from 'rxjs/operators';
+import { catchError, map, switchMap, take } from 'rxjs/operators';
+import { EMPTY } from 'rxjs';
+import { ToDo2Service } from '../to-do2.service';
 
 @Component({
   selector: 'app-to-do-form',
@@ -22,33 +23,46 @@ export class ToDoFormComponent implements OnInit {
 
   constructor(
     private _formBuilder: FormBuilder,
-    private _toDoService: ToDoService,
+    private _toDoService: ToDo2Service,
     private _alertService: AlertModalService,
     private _location: Location,
     private _route: ActivatedRoute,
-    private _router: Router,
+    private _router: Router
   ) { }
 
   ngOnInit(): void {
 
-    this._route.params
-    .pipe(
-      map((params: any) => params.id),
-      switchMap(
-        id => this._toDoService.loadById(id))
-        )
-    .subscribe( 
-      (toDo: ToDo) => this.updateForm(toDo)
-    );
+    if(this.isEdit()){
+      this._route.params
+      .pipe(
+        map((params: any) => params.id),
+        switchMap(
+            id => this._toDoService.loadById(id))
+          ).pipe(catchError(e => {
+            this._router.navigate(['to-do/not-found-toDo'])
+            return EMPTY
+          }))
+      .subscribe( 
+        (toDo: ToDo) => this.updateForm(toDo)
+      );
+    }
+
 
     this.form = this._formBuilder.group({
       id: [null],
-      title: [null, [Validators.required, Validators.minLength(5), Validators.maxLength(25)]],
+      title: [null, [Validators.required, Validators.minLength(5), Validators.maxLength(40)]],
       data: [null, [Validators.required, Validators.pattern(this.dataPattern)]],
       checked: [false],
       status: [null, Validators.required]
     })
 
+  }
+
+  isEdit(){
+    if(this._route.snapshot.routeConfig?.path === "new"){
+      return false
+    }
+    return true
   }
 
   updateForm(toDo:ToDo){
@@ -64,13 +78,13 @@ export class ToDoFormComponent implements OnInit {
   onSubmit(){
     this.submitted = true;
     if(this.form.valid){
-      this._toDoService.create(this.form.value).subscribe(
+      this._toDoService.save(this.form.value).subscribe(
         success => {
           this._alertService.showAlertSuccess("Salvo com sucesso.");
-          this._location.back();
+          this._router.navigate(['./'])
         },
         error => this._alertService.showAlertDanger("Desculpa, mas tivemos algum erro. Tente novamente.")
-      );
+      )
     }
   }
 
@@ -80,7 +94,20 @@ export class ToDoFormComponent implements OnInit {
   }
 
   onDelete(){
+    const result$ = this._alertService.showConfirm("Confirmação", "Tem certeza que deseja remover o ToDo?");
+    result$.asObservable().pipe(
+      take(1),
+      switchMap(result => result ? this._toDoService.remove(this.form.get('id')?.value) : EMPTY)
+      ) 
+      .subscribe(
+        success => {
+          this._location.back();
+        },
+        erro => {
+          this._alertService.showAlertDanger("Erro ao remover ToDo, tente depois."
+          )},
 
+    )
   }
 
   hasError(name:string){
@@ -95,13 +122,6 @@ export class ToDoFormComponent implements OnInit {
       return 'is-valid'
     }
     return ''
-  }
-
-  onAddSub(){
-    this.form.patchValue({
-      subs: true
-    })
-    console.log(this.form.get('subs'))
   }
 
 }
