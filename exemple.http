@@ -1,0 +1,16 @@
+http://localhost:3000/to-do
+
+###
+
+PUT http://localhost:3000/to-do/2 HTTP/1.1
+content-type: applicantion/json
+
+{
+"title": "Andar de bike de tarde ",
+"data": "01/05/2019",
+"checked": false,
+"status": "to-do",
+"subs": false
+}
+
+###  

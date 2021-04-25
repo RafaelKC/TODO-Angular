@@ -1,0 +1,65 @@
+<div class="card">
+    <div class="card-header">
+        <div class="float-left">
+            <h4>To-Do's</h4>
+        </div>
+        <div class="float-right">
+            <button type="button" class="btn btn-primary" (click)="onRefresh()">Recarregar</button>
+            {{ " " }}
+            <button type="button" [routerLink]="['new']" class="btn btn-success">New to-do</button>
+        </div>
+    </div>
+    <div class="card-body">
+        <table class="table table-hover" *ngIf="toDos$ | async as toDos; else loading">
+            <thead>
+                <tr>
+                    <th>>></th>
+                    <th>Checked</th>
+                    <th>Status</th>
+                    <th>To-Do</th>
+                    <th>Data</th>
+                    <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                  <tr *ngFor="let toDo of toDos" >
+                    <td>{{ toDo.id }}</td>
+                    <td>
+                        <input type="checkbox" [checked]="toDo.checked" (change)="onCheckChange($event, toDo?.id)">
+                    </td>
+                    <td>
+                        <span [ngClass]="statusCss(toDo.status)">
+                            {{ toDo.status }}
+                        </span>
+                    </td>
+                    <td> <a class="noLinkDecoration" [routerLink]="[toDo.id]">{{ toDo.title }}</a> </td>
+                    <td>{{ toDo.data }}</td>
+                    <td>
+                        <span class="float-right">
+                            <button class="btn btn-outline-primary mb-1 btn-sm">
+                                Visualizar
+                            </button>
+                            {{ "  "}}
+                            <button (click)="onEdit(toDo.id)" class="btn btn-outline-warning mb-1 btn-sm">
+                            Atualizar
+                            </button>
+                            {{ "  "}}
+                            <button (click)="onRemove()" class="btn btn-outline-danger mb-1 btn-sm">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
+                                    <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z"/>
+                                </svg>
+                            </button>
+                        </span>
+                    </td>
+                  </tr>
+              </tbody>
+        </table>
+
+        <ng-template #loading class='float'>
+                <div class="spinner-border" role="status">
+                    <span class="sr-only">Loading...</span>
+                </div>
+        </ng-template>
+
+    </div>
+</div>
