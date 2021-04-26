@@ -1,0 +1,12 @@
+<div class="margin-up">
+    <div class="custom-file">
+        <input type="file" class="custom-file-input" id="customFile" multiple (change)="onChange($event)">
+        <label id="customFileLabel" class="custom-file-label" for="customFile">{{ fileName }}</label>
+    </div>
+</div>
+<div class="progress margin-up">
+    <div class="progress-bar" role="progressbar" [ngStyle]="progressCss()" >{{ progress }}%</div>
+</div>
+<div class="margin-up">
+    <button type="button" [disabled]="!files" class="btn btn-primary" (click)="onUpload()">Salvar</button>
+</div>
