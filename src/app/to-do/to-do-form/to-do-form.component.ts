@@ -53,7 +53,8 @@ export class ToDoFormComponent implements OnInit {
       title: [null, [Validators.required, Validators.minLength(5), Validators.maxLength(40)]],
       data: [null, [Validators.required, Validators.pattern(this.dataPattern)]],
       checked: [false],
-      status: [null, Validators.required]
+      status: [null, Validators.required],
+      desc: [null]
     })
 
   }
@@ -71,7 +72,8 @@ export class ToDoFormComponent implements OnInit {
       id: toDo.id,
       data: toDo.data,
       checked: toDo.checked,
-      status: toDo.status 
+      status: toDo.status,
+      desc: toDo.desc, 
     })
   }
 

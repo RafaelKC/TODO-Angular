@@ -6,5 +6,6 @@ export interface ToDo {
     "data": string;
     "checked": boolean;
     "status": string;
+    "desc": string | null;
 
 }
