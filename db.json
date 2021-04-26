@@ -5,8 +5,8 @@
       "title": "Desenvolver ToDo com Angular",
       "data": "30/04/2021",
       "checked": false,
-      "status": "doing",
-      "desc": "O caminnho é duro mas noix tá aí!"
+      "status": "to-do",
+      "desc": "Tá funcionando."
     }
   ]
 }

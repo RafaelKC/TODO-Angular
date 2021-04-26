@@ -32,11 +32,11 @@
                             {{ toDo.status }}
                         </span>
                     </td>
-                    <td> <a class="noLinkDecoration" [routerLink]="[toDo.id]">{{ toDo.title }}</a> </td>
+                    <td> <a class="noLinkDecoration" [routerLink]="['view/', toDo.id]">{{ toDo.title }}</a> </td>
                     <td>{{ toDo.data }}</td>
                     <td>
                         <span class="float-right">
-                            <button class="btn btn-outline-primary mb-1 btn-sm">
+                            <button (click)="onView(toDo.id)" class="btn btn-outline-primary mb-1 btn-sm">
                                 Visualizar
                             </button>
                             {{ "  "}}

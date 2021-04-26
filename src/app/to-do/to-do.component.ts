@@ -79,4 +79,9 @@ export class ToDoComponent implements OnInit {
     this._router.navigate(['edit', id], { relativeTo: this._route })
   }
 
+  onView(id: number){
+    console.log(id)
+    this._router.navigate(['to-do/view', id])
+  }
+
 }

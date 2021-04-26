@@ -6,6 +6,7 @@ import { RouterModule } from '@angular/router';
 import { ToDoFormComponent } from './to-do-form/to-do-form.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NotFoundedComponent } from './not-founded/not-founded.component';
+import { ViewComponent } from './view/view.component';
 
 
 
@@ -13,7 +14,8 @@ import { NotFoundedComponent } from './not-founded/not-founded.component';
   declarations: [
     ToDoComponent,
     ToDoFormComponent,
-    NotFoundedComponent
+    NotFoundedComponent,
+    ViewComponent
   ],
   imports: [
     CommonModule,

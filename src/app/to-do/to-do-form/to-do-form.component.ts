@@ -25,7 +25,6 @@ export class ToDoFormComponent implements OnInit {
     private _formBuilder: FormBuilder,
     private _toDoService: ToDo2Service,
     private _alertService: AlertModalService,
-    private _location: Location,
     private _route: ActivatedRoute,
     private _router: Router
   ) { }
@@ -103,7 +102,7 @@ export class ToDoFormComponent implements OnInit {
       ) 
       .subscribe(
         success => {
-          this._location.back();
+          this._router.navigate(['/'])
         },
         erro => {
           this._alertService.showAlertDanger("Erro ao remover ToDo, tente depois."
