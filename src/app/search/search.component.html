@@ -7,32 +7,27 @@
                     id="myInput" 
                     class="form-control" 
                     placeholder="Pesquisar Libs"
-                    formControl="queryField"
+                    [formControl]="queryField"
                 />
-            </div>
-            <div class="col-auto">
-                <button (click)='onSearch()' class="btn btn-lg btn-success">
-                    Pesquisar
-                </button>
             </div>
         </div>
     </div>
     <div class="search-list">
-        <h3>303 Records Found</h3>j
+        <h3>{{ total }} Records Found</h3>
         <table class="table" id="myTable">
             <thead>
                 <tr>
-                    <th>Title</th>
-                    <th>Category</th>
+                    <th>Nome</th>
+                    <th>Versão</th>
+                    <th>Descrição</th>
                 </tr>
             </thead>
 
             <tbody>
-
-
-                <tr>
-                    <td>HTML</td>
-                    <td>Web Development</td>
+                <tr *ngFor="let result of results$ | async" >
+                    <td>{{ result.name }}</td>
+                    <td>{{ result.version }}</td>
+                    <td>{{ result.description }}</td>
                 </tr>
 
             </tbody>
