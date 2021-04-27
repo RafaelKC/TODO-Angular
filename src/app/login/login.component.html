@@ -1,0 +1,27 @@
+<div style="margin-top: 150px" [formGroup]="formLogin">
+  <h3 style="font-weight: bold;" >Login</h3>  
+  <form>
+        <div class="form-group">
+          <label for="exampleInputEmail1">Email</label>
+          <input 
+            type="email" 
+            class="form-control" 
+            id="exampleInputEmail1" 
+            aria-describedby="emailHelp"
+            formControlName="email"  
+            [ngClass]="errorCssEmail()"
+          >
+        </div>
+        <div class="form-group">
+          <label for="exampleInputPassword1">Senha</label>
+          <input
+            type="password" 
+            class="form-control" 
+            id="exampleInputPassword1"
+            formControlName="password"  
+            [ngClass]="passwordValid"
+          >
+        </div>
+        <button (click)="onSubmit()" type="submit" class="btn btn-primary">Entrar</button>
+      </form>
+</div>

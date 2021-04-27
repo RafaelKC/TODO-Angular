@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { EMPTY, Observable, Subject } from 'rxjs';
-import { catchError, switchMap, take } from 'rxjs/operators';
+import { catchError, map, switchMap, take } from 'rxjs/operators';
 import { Router, ActivatedRoute } from "@angular/router"
 
 import { AlertModalService } from '../shared/services/alert-modal.service';
 import { ToDo } from './to-do';
 import { BsModalRef } from 'ngx-bootstrap/modal';
 import { ToDo2Service } from './to-do2.service';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-to-do',
@@ -27,8 +28,7 @@ export class ToDoComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-
-    this.onRefresh()
+   this.onRefresh()
   }
 
   statusCss(status: string){
@@ -68,11 +68,6 @@ export class ToDoComponent implements OnInit {
         return EMPTY;
       })
     );
-  }
-
-  onCheckChange(e:Event, id:number=0){
-    console.log(e);
-    console.log(id)
   }
 
   onEdit(id:number=0){

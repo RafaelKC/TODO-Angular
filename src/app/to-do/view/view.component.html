@@ -1,50 +1,54 @@
-<form [formGroup]="form" >
+<div class="container view-container">
 
-    <div class="container view-container">
-    
-        <div class="row">
-            <h4 class='col-sm'>Nome: <div class="bold-container">{{ toDo.title }}</div></h4>
-            <div class="col-sm">
-                <button (click)="onDelete()" class="btn btn-warning">
-                    Excluir  
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
-                        <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z"/>
-                    </svg>
-                </button> 
-                  {{ '    ' }}
-                <button (click)="onEdit()" class="btn btn-primary">
-                    Editar  
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-three-dots-vertical" viewBox="0 0 16 16">
-                        <path d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/>
-                    </svg>
-                </button> 
-            </div>
+    <div class="row">
+        <h4 class='col-sm'>Nome: <div class="bold-container">{{ toDo.title }}</div>
+        </h4>
+        <div class="col-sm">
+            <button (click)="onDelete()" class="btn btn-warning">
+                Excluir
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                    class="bi bi-trash-fill" viewBox="0 0 16 16">
+                    <path
+                        d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z" />
+                </svg>
+            </button>
+            {{ ' ' }}
+            <button (click)="onEdit()" class="btn btn-primary">
+                Editar
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                    class="bi bi-three-dots-vertical" viewBox="0 0 16 16">
+                    <path
+                        d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z" />
+                </svg>
+            </button>
         </div>
-    
-        <div class="row view-container">
-            <div class="col-sm detail-content">
-                <div style="padding-bottom: 15px;">
-                    Status:
-                    <span [ngClass]="statusCss()">
-                        {{ toDo.status }}
-                    </span>
-                </div>
-                <div>Data: <div class="bold-container">{{ toDo.data }}</div></div>
-                <div>ID: <div class="bold-container">{{ toDo.id }}</div></div>
-                <div>
-                    Checked: 
-                    <div class="form-check form-check-inline">
-                    <input class="form-check-input" formControlName="checked" type="checkbox">
-                    </div>
-                </div>
-            </div> 
-                
-            <div class="col-sm" style="word-wrap: break-word">
-                <h5>Descrição</h5>
-                {{ toDo.desc }}
-            </div>
-        </div>
-    
     </div>
 
-</form>    
+    <div class="row view-container">
+        <div class="col-sm detail-content">
+            <div style="padding-bottom: 15px;">
+                Status:
+                <span [ngClass]="statusCss()">
+                    {{ toDo.status }}
+                </span>
+            </div>
+            <div>Data: <div class="bold-container">{{ toDo.data }}</div>
+            </div>
+            <div>ID: <div class="bold-container">{{ toDo.id }}</div>
+            </div>
+            <div>
+                Checked:
+                <div class="form-check form-check-inline">
+                    <input [formControl]="queryField" class="form-check-input" type="checkbox">
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm" style="max-width: 900px; word-wrap: break-word;">
+            <h5>Descrição</h5>
+                {{ toDo.desc }}
+
+        </div>
+    </div>
+
+</div>

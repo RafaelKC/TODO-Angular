@@ -6,10 +6,13 @@ import { ModalModule } from 'ngx-bootstrap/modal';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { SharedModule } from './shared/shared.module';
+import { LoginComponent } from './login/login.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
     AppComponent,
+    LoginComponent,
   ],
   imports: [
     BrowserModule,
@@ -17,6 +20,7 @@ import { SharedModule } from './shared/shared.module';
     AppRoutingModule,
     SharedModule,
     ModalModule.forRoot(),
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
