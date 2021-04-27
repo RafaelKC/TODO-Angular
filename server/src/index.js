@@ -20,6 +20,14 @@ app.post('/upload', multipartMiddleware, (req, res) => {
     res.json({ massage : files })
 });
 
+app.get('/downloadExcel', (req, res) => {
+    res.download('./upload/report.xlsx');
+});
+
+app.get('/downloadPdf', (req, res) => {
+    res.download('./upload/report.docx')
+});
+
 app.use((err, req, res, next) => {
     res.json({ error: err.massage})
 });

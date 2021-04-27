@@ -3,7 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
   {
-    path: "", pathMatch: "full", redirectTo: "upload",
+    path: "", pathMatch: "full", redirectTo: "search",
   },
   {
     path: 'to-do', 
@@ -12,6 +12,10 @@ const routes: Routes = [
   {
     path: 'upload', 
     loadChildren: () => import('./upload-file/upload-file.module').then(m => m.UploadFileModule)
+  },
+  {
+    path: 'search', 
+    loadChildren: () => import('./search/search.module').then(m => m.SearchModule)
   }
 ];
 

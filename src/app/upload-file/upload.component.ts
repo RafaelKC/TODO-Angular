@@ -40,7 +40,7 @@ export class UploadComponent implements OnInit, OnDestroy {
 
     this.progress = 0;
   }
-
+ 
   onUpload(){
     if(this.files && this.files.size){
       this.subs = this._upload.upload(this.files, "/api/upload")
@@ -62,4 +62,17 @@ export class UploadComponent implements OnInit, OnDestroy {
     return {width: `${this.progress}%`}
   }
 
+  onPdf(){
+    this._upload.download('/api/downloadPdf')
+    .subscribe((res:any) => {
+      this._upload.handleFile(res, 'report.docx')
+    });
+  }
+  
+  onExcel(){
+    this._upload.download('/api/downloadExcel')
+    .subscribe((res:any) => {
+      this._upload.handleFile(res, 'report.xlsx')
+    });
+  }
 } 
