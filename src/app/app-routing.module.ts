@@ -1,8 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+
 import { ExitComponent } from './exit.component';
 import { AuthGuard } from './guards/auth.guard';
 import { LoginComponent } from './login/login.component';
+import { NotFoundedComponent } from './not-founded/not-founded.component';
 
 const routes: Routes = [
   {
@@ -14,6 +16,9 @@ const routes: Routes = [
   {
     path: "exit", component: ExitComponent,
     canActivate: [AuthGuard],
+  },
+  {
+    path: 'not-found', component: NotFoundedComponent,
   },
   {
     path: 'to-do', 

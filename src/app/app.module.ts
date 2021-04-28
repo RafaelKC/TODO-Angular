@@ -9,12 +9,14 @@ import { SharedModule } from './shared/shared.module';
 import { LoginComponent } from './login/login.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ExitComponent } from './exit.component';
+import { NotFoundedComponent } from './not-founded/not-founded.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    ExitComponent
+    ExitComponent,
+    NotFoundedComponent
   ],
   imports: [
     BrowserModule,

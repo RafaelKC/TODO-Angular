@@ -39,7 +39,7 @@ export class ToDoFormComponent implements OnInit {
           switchMap(
             id => this._toDoService.loadById(id))
         ).pipe(catchError(e => {
-          this._router.navigate(['to-do/not-found-toDo'])
+          this._router.navigate(['not-found-toDo'])
           return EMPTY
         }))
         .subscribe(
