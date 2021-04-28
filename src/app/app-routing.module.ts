@@ -6,6 +6,7 @@ import { AuthGuard } from './guards/auth.guard';
 import { LoginComponent } from './login/login.component';
 import { NotFoundedComponent } from './not-founded/not-founded.component';
 
+
 const routes: Routes = [
   {
     path: "", pathMatch: "full", redirectTo: "to-do"
