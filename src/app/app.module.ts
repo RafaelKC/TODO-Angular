@@ -8,11 +8,13 @@ import { AppComponent } from './app.component';
 import { SharedModule } from './shared/shared.module';
 import { LoginComponent } from './login/login.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { ExitComponent } from './exit.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
+    ExitComponent
   ],
   imports: [
     BrowserModule,

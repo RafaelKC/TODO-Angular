@@ -75,7 +75,6 @@ export class ToDoComponent implements OnInit {
   }
 
   onView(id: number){
-    console.log(id)
     this._router.navigate(['to-do/view', id])
   }
 

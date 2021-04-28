@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
+import { AuthService } from "./auth.service";
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -13,7 +15,8 @@ export class LoginComponent implements OnInit {
   passwordValid = '';
 
   constructor(
-    private _formBuilder: FormBuilder
+    private _formBuilder: FormBuilder,
+    private _authService: AuthService
   ) { }
 
 
@@ -41,9 +44,12 @@ export class LoginComponent implements OnInit {
 
   onSubmit(): void {
     if(this.formLogin.valid){
-      console.log('Tudo nos confirmes')
+      this._authService.login(this.formLogin.value)
+      if(!this._authService.isAuth()){
+        this.emailIsValid = false;
+        this.passwordValid = 'is-invalid';
+      }
     } else {
-      console.log('Blhá')
       this.emailIsValid = false;
       this.passwordValid = 'is-invalid';
     }

@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AlertModalService } from '../../shared/services/alert-modal.service';
-import { Location } from '@angular/common';
 
 
 import { ActivatedRoute, Router, } from '@angular/router';
@@ -20,6 +19,8 @@ export class ToDoFormComponent implements OnInit {
   form!: FormGroup;
   dataPattern = /^(?:(?:31(\/|-|\.)(?:0?[13578]|1[02]))\1|(?:(?:29|30)(\/|-|\.)(?:0?[13-9]|1[0-2])\2))(?:(?:1[6-9]|[2-9]\d)?\d{2})$|^(?:29(\/|-|\.)0?2\3(?:(?:(?:1[6-9]|[2-9]\d)?(?:0[48]|[2468][048]|[13579][26])|(?:(?:16|[2468][048]|[3579][26])00))))$|^(?:0?[1-9]|1\d|2[0-8])(\/|-|\.)(?:(?:0?[1-9])|(?:1[0-2]))\4(?:(?:1[6-9]|[2-9]\d)?\d{2})$/
   submitted = false;
+  formChanges = false;
+  changes = 0;
 
   constructor(
     private _formBuilder: FormBuilder,
@@ -31,19 +32,19 @@ export class ToDoFormComponent implements OnInit {
 
   ngOnInit(): void {
 
-    if(this.isEdit()){
+    if (this.isEdit()) {
       this._route.params
-      .pipe(
-        map((params: any) => params.id),
-        switchMap(
+        .pipe(
+          map((params: any) => params.id),
+          switchMap(
             id => this._toDoService.loadById(id))
-          ).pipe(catchError(e => {
-            this._router.navigate(['to-do/not-found-toDo'])
-            return EMPTY
-          }))
-      .subscribe( 
-        (toDo: ToDo) => this.updateForm(toDo)
-      );
+        ).pipe(catchError(e => {
+          this._router.navigate(['to-do/not-found-toDo'])
+          return EMPTY
+        }))
+        .subscribe(
+          (toDo: ToDo) => this.updateForm(toDo)
+        );
     }
 
 
@@ -56,31 +57,53 @@ export class ToDoFormComponent implements OnInit {
       desc: [null]
     })
 
+    this.form.valueChanges.subscribe(
+      e => {
+        this.changes++;
+        if (this.changes > 1) {
+          this.formChanges = true;
+        }
+      }
+    )
+
   }
 
-  isEdit(){
-    if(this._route.snapshot.routeConfig?.path === "new"){
+  canExit() {
+    if (this.formChanges === true) {
+      const result$ = this._alertService.showConfirm("Deseja sair mesmo?", "Ao sair sem salvar as alterações não serão salvas. Deseja mesmo sair?")
+      return result$.asObservable().pipe(
+        take(1),
+        switchMap(async (result) => result ? true : false)
+      )
+    } else {
+      return true;
+    }
+  }
+
+  isEdit() {
+    if (this._route.snapshot.routeConfig?.path === "new") {
       return false
     }
     return true
   }
 
-  updateForm(toDo:ToDo){
+  updateForm(toDo: ToDo) {
     this.form.patchValue({
       title: toDo.title,
       id: toDo.id,
       data: toDo.data,
       checked: toDo.checked,
       status: toDo.status,
-      desc: toDo.desc, 
+      desc: toDo.desc,
     })
   }
 
-  onSubmit(){
+  onSubmit() {
     this.submitted = true;
-    if(this.form.valid){
+    if (this.form.valid) {
       this._toDoService.save(this.form.value).subscribe(
         success => {
+          this.formChanges = false;
           this._alertService.showAlertSuccess("Salvo com sucesso.");
           this._router.navigate(['./'])
         },
@@ -89,35 +112,36 @@ export class ToDoFormComponent implements OnInit {
     }
   }
 
-  onCancel(){
+  onCancel() {
     this.submitted = false;
     this.form.reset()
   }
 
-  onDelete(){
+  onDelete() {
     const result$ = this._alertService.showConfirm("Confirmação", "Tem certeza que deseja remover o ToDo?");
     result$.asObservable().pipe(
       take(1),
       switchMap(result => result ? this._toDoService.remove(this.form.get('id')?.value) : EMPTY)
-      ) 
+    )
       .subscribe(
         success => {
           this._router.navigate(['/'])
         },
         erro => {
           this._alertService.showAlertDanger("Erro ao remover ToDo, tente depois."
-          )},
+          )
+        },
 
-    )
+      )
   }
 
-  hasError(name:string){
+  hasError(name: string) {
     return this.form.get(name)?.errors;
   }
 
-  applyCss(name: string){
-    if(this.submitted){
-      if(this.hasError(name)){
+  applyCss(name: string) {
+    if (this.submitted) {
+      if (this.hasError(name)) {
         return 'is-invalid'
       }
       return 'is-valid'
