@@ -6,13 +6,15 @@ export interface User {
   password: string;
 }
 
+const RKC_TODO_AUTH_KEY = 'rck_auth_key'
+
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
   showMenuEmitter = new EventEmitter<boolean>();
-  private userAuth: boolean = false;
+  private userAuth: boolean = localStorage[RKC_TODO_AUTH_KEY] ? JSON.parse(localStorage[RKC_TODO_AUTH_KEY]) : false;
   private users: User[] = [
     {
       email: 'rafael@email.com',
@@ -36,26 +38,38 @@ export class AuthService {
     const currentUser = this.users.find((v:User) => v.email === user.email);
     if(currentUser){
       if(currentUser.password === user.password){
-        this.userAuth = true;
-        this.showMenuEmitter.emit(true);
+        this.changeAuth(true)
         this._router.navigate(['/']);
       } else{
-        this.showMenuEmitter.emit(false);
-        this.userAuth = false;
+        this.changeAuth(false)
       }
     } else {
-      this.showMenuEmitter.emit(false);
-      this.userAuth = false;
+      this.changeAuth(false)
     }
   }
 
   isAuth(){
-    return this.userAuth
+    let local = false
+    if(localStorage[RKC_TODO_AUTH_KEY] !== undefined){
+      local = JSON.parse(localStorage[RKC_TODO_AUTH_KEY]);
+    } 
+    if(local){
+      this.changeAuth(true);
+      return this.userAuth
+    } else {
+      this.changeAuth(false);
+      return this.userAuth
+    }
   }
 
   exit(){
-    this.showMenuEmitter.emit(false);
-    this.userAuth = false;
+    this.changeAuth(false)
+  }
+
+  private changeAuth(value: boolean){
+    this.userAuth = value;
+    localStorage[RKC_TODO_AUTH_KEY] = JSON.stringify(this.userAuth)
+    this.showMenuEmitter.emit(this.userAuth);
   }
 
 }

@@ -13,13 +13,13 @@ export class AuthGuard implements CanActivate, CanDeactivate<ToDoFormComponent>,
   constructor(
     private _authService: AuthService,
     private _router: Router,
-    private _alertService: AlertModalService,
   ) { }
 
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean> | boolean {
-    if (this._authService.isAuth()) {
+      if (this._authService.isAuth()) {
+      console.log(this._authService.isAuth())
       return true;
     } else {
       this._router.navigate(['/login']);

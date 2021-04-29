@@ -27,6 +27,7 @@ const routes: Routes = [
     canLoad: [AuthGuard],
     loadChildren: () => import('./to-do/to-do.module').then(m => m.ToDoModule)
   },
+  { path: '**', pathMatch: "full", redirectTo: "to-do"}
 ];
 
 @NgModule({
