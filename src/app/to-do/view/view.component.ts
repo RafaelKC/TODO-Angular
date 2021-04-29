@@ -33,7 +33,7 @@ export class ViewComponent implements OnInit {
         id => this._toDoService.loadById(id)
       ),
       catchError(error => {
-        this._router.navigate(['to-do/not-found-toDo'])
+        this._router.navigate(['not-found'])
         return EMPTY
       })
     ).subscribe(
