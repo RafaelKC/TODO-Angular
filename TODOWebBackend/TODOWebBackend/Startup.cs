@@ -22,7 +22,7 @@ namespace TODOWebBackend
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-             string stringConexao = "Server=localhost;DataBase=RafaelChicovis_Todo;Uid=root;Pwd=M@st3rBl@st3r";
+             string stringConexao = "Server=localhost;DataBase=yourdatabase;Uid=root;Pwd=somethingelse";
             services.AddDbContext<DataContext>(options =>
             options.UseMySQL(stringConexao));
             services.AddControllers();
