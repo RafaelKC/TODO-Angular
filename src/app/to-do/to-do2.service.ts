@@ -13,7 +13,7 @@ export class ToDo2Service extends CrudService<ToDo> {
   constructor(
     protected _http: HttpClient
     ) {
-      super(_http, `${environment.API}/to-do`);
+      super(_http, `/api/toDo`);
      }
 
 }

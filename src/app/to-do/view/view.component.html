@@ -29,7 +29,7 @@
             <div style="padding-bottom: 15px;">
                 Status:
                 <span [ngClass]="statusCss()">
-                    {{ toDo.status }}
+                    {{ getStatusTranslate(toDo) }}
                 </span>
             </div>
             <div>Data: <div class="bold-container">{{ toDo.data }}</div>

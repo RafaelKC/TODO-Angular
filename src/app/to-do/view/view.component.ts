@@ -1,12 +1,13 @@
-import { Component, OnInit } from '@angular/core';
-import { FormControl, } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
-import { EMPTY } from 'rxjs';
-import { catchError, map, switchMap, take } from 'rxjs/operators';
-import { AlertModalService } from 'src/app/shared/services/alert-modal.service';
-import { ToDo } from '../to-do';
+import {Component, OnInit} from '@angular/core';
+import {FormControl,} from '@angular/forms';
+import {ActivatedRoute, Router} from '@angular/router';
+import {EMPTY} from 'rxjs';
+import {catchError, map, switchMap, take} from 'rxjs/operators';
+import {AlertModalService} from 'src/app/shared/services/alert-modal.service';
+import {ToDo} from '../to-do';
 
-import { ToDoService } from '../to-do.service';
+import {ToDoService} from '../to-do.service';
+import {TodoStatus} from "../todo-status";
 
 @Component({
   selector: 'app-view',
@@ -16,7 +17,7 @@ import { ToDoService } from '../to-do.service';
 export class ViewComponent implements OnInit {
 
   queryField = new FormControl();
-  toDo: ToDo = { title: '', checked: false, data: '', desc: '', id: 0, status: '' }
+  toDo: ToDo = { title: '', checked: false, data: '', desc: '', id: '0', status: TodoStatus.ToDo, userId: '' }
   originalValue!: boolean;
 
   constructor(
@@ -73,16 +74,24 @@ export class ViewComponent implements OnInit {
   }
 
   statusCss() {
-    if (this.toDo.status == 'doing') {
+    if (this.toDo.status == TodoStatus.Doing) {
       return 'btn btn-warning';
     }
-    if (this.toDo.status == 'done') {
+    if (this.toDo.status == TodoStatus.Done) {
       return 'btn btn-success';
     }
-    if (this.toDo.status == 'to-do') {
+    if (this.toDo.status == TodoStatus.ToDo) {
       return 'btn btn-danger';
     }
     return '';
+  }
+
+  getStatusTranslate(toDo: ToDo): string  {
+    switch (toDo.status) {
+      case TodoStatus.Doing: return 'Fazendo';
+      case TodoStatus.Done: return 'Feito';
+      case TodoStatus.ToDo: return 'Para fazer'
+    }
   }
 
 }

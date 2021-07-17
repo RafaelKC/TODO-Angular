@@ -1,11 +1,11 @@
-import { SubToDo } from './sub-to-do'
+import {TodoStatus} from "./todo-status";
 
 export interface ToDo {
-    "id": number;
+    "id": string;
     "title": string;
     "data": string;
     "checked": boolean;
-    "status": string;
+    "status": TodoStatus;
     "desc": string | null;
-
+    "userId": string | null;
 }

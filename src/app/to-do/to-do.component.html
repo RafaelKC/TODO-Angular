@@ -13,26 +13,24 @@
         <table class="table table-hover" *ngIf="toDos$ | async as toDos; else loading">
             <thead>
                 <tr>
-                    <th>>></th>
+                    <th>Nome</th>
                     <th>Checked</th>
                     <th>Status</th>
-                    <th>To-Do</th>
                     <th>Data</th>
                     <th></th>
                 </tr>
               </thead>
               <tbody>
                   <tr *ngFor="let toDo of toDos" >
-                    <td>{{ toDo.id }}</td>
+                    <td> <a class="noLinkDecoration" [routerLink]="['view/', toDo.id]">{{ toDo.title }}</a> </td>
                     <td>
                         <input type="checkbox" [checked]="toDo.checked" disabled>
                     </td>
                     <td>
                         <span [ngClass]="statusCss(toDo.status)">
-                            {{ toDo.status }}
+                            {{ getStatusTranslate(toDo) }}
                         </span>
                     </td>
-                    <td> <a class="noLinkDecoration" [routerLink]="['view/', toDo.id]">{{ toDo.title }}</a> </td>
                     <td>{{ toDo.data }}</td>
                     <td>
                         <span class="float-right">
@@ -60,7 +58,7 @@
                     <span class="sr-only">Loading...</span>
                 </div>
         </ng-template>
-        
+
 
     </div>
 </div>

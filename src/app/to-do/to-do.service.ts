@@ -10,14 +10,14 @@ import { ToDo } from './to-do';
 })
 export class ToDoService {
 
-  private readonly API = `${environment.API}/to-do`
+  private readonly API = `${environment.API}/toDo`
 
   constructor(
     private _http: HttpClient,
   ) { }
 
   list(){
-    return this._http.get<ToDo[]>(this.API);
+    return this._http.get<ToDo[]>(`${this.API}/getList`);
   }
 
   private create(toDo: ToDo){
@@ -26,8 +26,8 @@ export class ToDoService {
       );
   }
 
-  loadById(id:number){
-    return this._http.get<ToDo>(`${this.API}/${id}`).pipe(take(1));
+  loadById(id: string){
+      return this._http.get<ToDo>(`${this.API}/${id}`).pipe(take(1));
   }
 
   private updateToDo(toDo:ToDo){
@@ -41,7 +41,7 @@ export class ToDoService {
     return this.create(toDo);
   }
 
-  remove(id: number){
+  remove(id: string){
     return this._http.delete(`${this.API}/${id}`).pipe(take(1))
   }
 

@@ -8,6 +8,8 @@ import { ToDo } from '../to-do';
 import { catchError, map, switchMap, take } from 'rxjs/operators';
 import { EMPTY } from 'rxjs';
 import { ToDo2Service } from '../to-do2.service';
+import { v4 as uuid } from 'uuid';
+import {TodoStatus} from "../todo-status";
 
 @Component({
   selector: 'app-to-do-form',
@@ -21,6 +23,7 @@ export class ToDoFormComponent implements OnInit {
   submitted = false;
   formChanges = false;
   changes = 0;
+  todoStatus = TodoStatus;
 
   constructor(
     private _formBuilder: FormBuilder,
@@ -54,7 +57,8 @@ export class ToDoFormComponent implements OnInit {
       data: [null, [Validators.required, Validators.pattern(this.dataPattern)]],
       checked: [false],
       status: [null, Validators.required],
-      desc: [null]
+      desc: [null],
+      userId: [null]
     })
 
     this.form.valueChanges.subscribe(
@@ -95,13 +99,20 @@ export class ToDoFormComponent implements OnInit {
       checked: toDo.checked,
       status: toDo.status,
       desc: toDo.desc,
+      userId: toDo.userId,
     })
   }
 
   onSubmit() {
     this.submitted = true;
     if (this.form.valid) {
-      this._toDoService.save(this.form.value).subscribe(
+      // Temporary
+      this.form.get(["userId"])?.setValue(uuid());
+      this.form.get(["status"])?.setValue(this.convertToEnum());
+      if (!this.isEdit()) {
+        this.form.get(["id"])?.setValue(uuid());
+      }
+      this._toDoService.save(this.form.value, this.isEdit()).subscribe(
         success => {
           this.formChanges = false;
           this._alertService.showAlertSuccess("Salvo com sucesso.");
@@ -137,6 +148,14 @@ export class ToDoFormComponent implements OnInit {
 
   hasError(name: string) {
     return this.form.get(name)?.errors;
+  }
+
+  convertToEnum() {
+    var value = this.form.get(["status"])?.value;
+    if(value == "1") return 1;
+    if(value == "0") return 0;
+    if(value == "2") return 2;
+    else return 0;
   }
 
   applyCss(name: string) {

@@ -7,7 +7,7 @@ import { AlertModalService } from '../shared/services/alert-modal.service';
 import { ToDo } from './to-do';
 import { BsModalRef } from 'ngx-bootstrap/modal';
 import { ToDo2Service } from './to-do2.service';
-import { FormControl } from '@angular/forms';
+import {TodoStatus} from "./todo-status";
 
 @Component({
   selector: 'app-to-do',
@@ -31,14 +31,14 @@ export class ToDoComponent implements OnInit {
    this.onRefresh()
   }
 
-  statusCss(status: string){
-    if(status == 'doing'){
+  statusCss(status: TodoStatus){
+    if(status == TodoStatus.Doing){
       return 'btn btn-warning';
     }
-    if(status == 'done'){
+    if(status == TodoStatus.Done){
       return 'btn btn-success';
     }
-    if(status == 'to-do'){
+    if(status == TodoStatus.ToDo){
       return 'btn btn-danger';
     }
     return '';
@@ -49,7 +49,7 @@ export class ToDoComponent implements OnInit {
     result$.asObservable().pipe(
       take(1),
       switchMap(result => result ? this._toDoService.remove(toDo.id) : EMPTY)
-      ) 
+      )
       .subscribe(
         success => {
           this.onRefresh()
@@ -70,12 +70,20 @@ export class ToDoComponent implements OnInit {
     );
   }
 
-  onEdit(id:number=0){
+  onEdit(id:string="0"){
     this._router.navigate(['edit', id], { relativeTo: this._route })
   }
 
-  onView(id: number){
+  onView(id: string){
     this._router.navigate(['to-do/view', id])
+  }
+
+  getStatusTranslate(toDo: ToDo): string  {
+    switch (toDo.status) {
+      case TodoStatus.Doing: return 'Fazendo';
+      case TodoStatus.Done: return 'Feito';
+      case TodoStatus.ToDo: return 'Para fazer'
+    }
   }
 
 }

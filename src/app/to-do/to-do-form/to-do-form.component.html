@@ -2,18 +2,18 @@
 
     <button *ngIf="form.get('id')?.value" (click)="onDelete()" class="btn btn-warning">Excluir  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
         <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z"/>
-      </svg></button> 
+      </svg></button>
     {{ " " }}
-    <h3 *ngIf="(form.get('id')?.value) !== null">ID: {{ form.get('id')?.value }}</h3>
-    
+<!--    <h3 *ngIf="(form.get('id')?.value) !== null">ID: {{ form.get('id')?.value }}</h3>-->
+
     <div class="form-row MarginTop">
         <div class="col-md-9 mb-3">
           <label for="title">Nome <div class="required">*</div> </label>
-          <input 
+          <input
           placeholder="Nome"
-          type="text" 
-          class="form-control" 
-          id="title" 
+          type="text"
+          class="form-control"
+          id="title"
           formControlName="title"
           [ngClass]="applyCss('title')">
           <div class="invalid-feedback">
@@ -23,25 +23,25 @@
 
      <div class="col-md-3 mb-3">
         <label for="data">Data  <div class="required">*</div></label>
-        <input 
+        <input
         placeholder="dd/mm/aaaa"
-        type="text" 
-        class="form-control" 
-        id="data" 
+        type="text"
+        class="form-control"
+        id="data"
         formControlName="data"
         [ngClass]="applyCss('data')">
         <div class="invalid-feedback">
           Data é obrigatório e deve estar no formato dd/mm/aaaa.
-        </div>          
+        </div>
     </div>
 
     <div class="float-left">
         <div class="col-md-4 mb-3">
             <label for="check">Checked</label>
-            <input 
-            type="checkbox" 
-            id="check" 
-            formControlName="checked"  
+            <input
+            type="checkbox"
+            id="check"
+            formControlName="checked"
             [ngClass]="applyCss('checked')">
         </div>
     </div>
@@ -50,16 +50,16 @@
         <div class="col-md-4 mb-3">
             <label class="my-1 mr-2" for="status">Status</label>
             <select id="status" formControlName="status" [ngClass]="applyCss('status')">
-                <option value="done">Feito</option>
-                <option value="doing">Fazendo</option>
-                <option value="to-do">A fazer</option>
+                <option [value]="todoStatus.Done">Feito</option>
+                <option [value]="todoStatus.Doing">Fazendo</option>
+                <option [value]="todoStatus.ToDo">A fazer</option>
             </select>
             <div class="invalid-feedback">
                 Selecione uma.
-            </div>  
+            </div>
         </div>
-    </div>  
-    </div>  
+    </div>
+    </div>
 
     <div class="mb-3">
         <label for="validationTextarea">Descrição</label>
