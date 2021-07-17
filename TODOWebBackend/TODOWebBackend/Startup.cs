@@ -1,10 +1,12 @@
+using System.Text;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.AspNetCore.Cors;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using TODOWebBackend.Database;
 
@@ -19,13 +21,11 @@ namespace TODOWebBackend
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-             string stringConexao = "Server=localhost;DataBase=yourdatabase;Uid=root;Pwd=somethingelse";
+
             services.AddDbContext<DataContext>(options =>
             options.UseMySQL(stringConexao));
-            services.AddControllers();
             services.AddCors(options =>
             {
               options.AddPolicy(name: "mypolicy",
@@ -34,6 +34,26 @@ namespace TODOWebBackend
                   builder.WithOrigins("http://localhost:4200").AllowAnyHeader().AllowAnyMethod();
                 });
             });
+            services.AddControllers();
+
+            var key = Encoding.ASCII.GetBytes(Settings.Secret);
+            services.AddAuthentication(e =>
+              {
+                e.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                e.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+              })
+              .AddJwtBearer(e =>
+              {
+                e.RequireHttpsMetadata = false;
+                e.SaveToken = true;
+                e.TokenValidationParameters = new TokenValidationParameters
+                {
+                  ValidateIssuerSigningKey = true,
+                  IssuerSigningKey = new SymmetricSecurityKey(key),
+                  ValidateIssuer = false,
+                  ValidateAudience = false
+                };
+              });
 
             services.AddSwaggerGen(c =>
             {
@@ -56,6 +76,8 @@ namespace TODOWebBackend
             app.UseRouting();
 
             app.UseCors("mypolicy");
+
+            app.UseAuthentication();
 
             app.UseAuthorization();
 

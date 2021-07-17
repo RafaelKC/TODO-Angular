@@ -44,3 +44,11 @@ C:\Users\Dev01\Documents\Testes\TODO-Angular\TODOWebBackend\TODOWebBackend\bin\D
 C:\Users\Dev01\Documents\Testes\TODO-Angular\TODOWebBackend\TODOWebBackend\bin\Debug\net5.0\Swashbuckle.AspNetCore.SwaggerGen.dll
 C:\Users\Dev01\Documents\Testes\TODO-Angular\TODOWebBackend\TODOWebBackend\bin\Debug\net5.0\Swashbuckle.AspNetCore.SwaggerUI.dll
 C:\Users\Dev01\Documents\Testes\TODO-Angular\TODOWebBackend\TODOWebBackend\obj\Debug\net5.0\TODOWebBackend.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\Dev01\Documents\Testes\TODO-Angular\TODOWebBackend\TODOWebBackend\bin\Debug\net5.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\Users\Dev01\Documents\Testes\TODO-Angular\TODOWebBackend\TODOWebBackend\bin\Debug\net5.0\Microsoft.IdentityModel.JsonWebTokens.dll
+C:\Users\Dev01\Documents\Testes\TODO-Angular\TODOWebBackend\TODOWebBackend\bin\Debug\net5.0\Microsoft.IdentityModel.Logging.dll
+C:\Users\Dev01\Documents\Testes\TODO-Angular\TODOWebBackend\TODOWebBackend\bin\Debug\net5.0\Microsoft.IdentityModel.Protocols.dll
+C:\Users\Dev01\Documents\Testes\TODO-Angular\TODOWebBackend\TODOWebBackend\bin\Debug\net5.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+C:\Users\Dev01\Documents\Testes\TODO-Angular\TODOWebBackend\TODOWebBackend\bin\Debug\net5.0\Microsoft.IdentityModel.Tokens.dll
+C:\Users\Dev01\Documents\Testes\TODO-Angular\TODOWebBackend\TODOWebBackend\bin\Debug\net5.0\Newtonsoft.Json.dll
+C:\Users\Dev01\Documents\Testes\TODO-Angular\TODOWebBackend\TODOWebBackend\bin\Debug\net5.0\System.IdentityModel.Tokens.Jwt.dll

@@ -10,7 +10,7 @@ namespace TODOWebBackend.Models
     public string Username { get; set; }
     public string Login { get; set; }
     public string Email { get; set; }
-    public bool IsDalatad { get; set; }
+    public IsDeleted IsDelatad { get; set; }
     public DateTime CreateTime { get; set; }
     public string Password { get; set; }
   }
