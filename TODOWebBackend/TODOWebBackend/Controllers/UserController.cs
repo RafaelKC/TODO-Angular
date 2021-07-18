@@ -62,5 +62,12 @@ namespace TODOWebBackend.Controllers
       };
     }
 
+    [HttpGet("tokenIsValid")]
+    [Authorize]
+    public async Task<ActionResult<Boolean>> TokenIsValid()
+    {
+      return true;
+    }
+
   }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
@@ -18,7 +19,8 @@ namespace TODOWebBackend.Services
         Subject = new ClaimsIdentity(new[]
         {
           new Claim(ClaimTypes.Name, user.Username.ToString()),
-          new Claim(ClaimTypes.Email, user.Email.ToString())
+          new Claim(ClaimTypes.Email, user.Email.ToString()),
+          new Claim(ClaimTypes.Role, user.Id.ToString())
         }),
         Expires = DateTime.UtcNow.AddHours(2),
         SigningCredentials =  new SigningCredentials(

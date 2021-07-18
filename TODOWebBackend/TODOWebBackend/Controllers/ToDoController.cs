@@ -1,6 +1,11 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using System.Net.Http;
+using System.Security.Claims;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using TODOWebBackend.Database;
@@ -11,6 +16,7 @@ namespace TODOWebBackend.Controllers
 {
   [ApiController]
   [Route("api/toDo")]
+  [Authorize]
   public class ToDoController : ControllerBase
   {
       private readonly ITodoService _todoService;
@@ -23,7 +29,11 @@ namespace TODOWebBackend.Controllers
       [HttpGet("getList")]
       public  async Task<ActionResult<List<Todo>>> GetList()
       {
-        var result = await _todoService.GetList();
+        var identity = HttpContext.User.Identity as ClaimsIdentity;
+        IList<Claim> claim = identity.Claims.ToList();
+        var userId = claim[2].Value;
+
+        var result = await _todoService.GetList(userId);
         return result;
       }
 
@@ -34,7 +44,11 @@ namespace TODOWebBackend.Controllers
         {
           return BadRequest("Id Invalid");
         }
-        var result = await _todoService.GetById(id);
+        var identity = HttpContext.User.Identity as ClaimsIdentity;
+        IList<Claim> claim = identity.Claims.ToList();
+        var userId = claim[2].Value;
+
+        var result = await _todoService.GetById(id, userId);
         if (result == null)
         {
           return NotFound();
@@ -71,7 +85,7 @@ namespace TODOWebBackend.Controllers
       }
 
       [HttpPut("{id}")]
-      public async Task<ActionResult<Todo>> Put([FromBody] Todo model, string id)
+      public async Task<ActionResult<SuccessDto>> Put([FromBody] Todo model, string id)
       {
         if (!ModelState.IsValid)
         {
@@ -88,7 +102,10 @@ namespace TODOWebBackend.Controllers
         {
           return NotFound();
         }
-        return result;
+        return new SuccessDto
+        {
+          Success = true
+        };
       }
   }
 }

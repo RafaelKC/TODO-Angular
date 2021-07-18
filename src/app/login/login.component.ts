@@ -37,15 +37,14 @@ export class LoginComponent implements OnInit {
     )
 
     this.formLogin.get('password')?.statusChanges.subscribe(
-      e => e ? this.passwordValid = '' : this.passwordValid = 'is-invalid' 
+      e => e ? this.passwordValid = '' : this.passwordValid = 'is-invalid'
     )
 
   }
 
-  onSubmit(): void {
+  async onSubmit() {
     if(this.formLogin.valid){
-      this._authService.login(this.formLogin.value)
-      if(!this._authService.isAuth()){
+      if(!await this._authService.login(this.formLogin.value)){
         this.emailIsValid = false;
         this.passwordValid = 'is-invalid';
       }

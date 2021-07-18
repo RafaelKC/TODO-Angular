@@ -10,6 +10,7 @@ import { LoginComponent } from './login/login.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ExitComponent } from './exit.component';
 import { NotFoundedComponent } from './not-founded/not-founded.component';
+import {httpInterceptorsProvider} from "./http-interceptors";
 
 @NgModule({
   declarations: [
@@ -26,7 +27,9 @@ import { NotFoundedComponent } from './not-founded/not-founded.component';
     ModalModule.forRoot(),
     ReactiveFormsModule
   ],
-  providers: [],
+  providers: [
+    httpInterceptorsProvider
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

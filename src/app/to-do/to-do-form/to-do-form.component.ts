@@ -10,6 +10,8 @@ import { EMPTY } from 'rxjs';
 import { ToDo2Service } from '../to-do2.service';
 import { v4 as uuid } from 'uuid';
 import {TodoStatus} from "../todo-status";
+import {AuthService} from "../../login/auth.service";
+import { User } from 'src/app/login/models/User';
 
 @Component({
   selector: 'app-to-do-form',
@@ -30,11 +32,11 @@ export class ToDoFormComponent implements OnInit {
     private _toDoService: ToDo2Service,
     private _alertService: AlertModalService,
     private _route: ActivatedRoute,
-    private _router: Router
+    private _router: Router,
+    private _authService: AuthService
   ) { }
 
   ngOnInit(): void {
-
     if (this.isEdit()) {
       this._route.params
         .pipe(
@@ -103,14 +105,13 @@ export class ToDoFormComponent implements OnInit {
     })
   }
 
-  onSubmit() {
+  async onSubmit() {
     this.submitted = true;
     if (this.form.valid) {
-      // Temporary
-      this.form.get(["userId"])?.setValue(uuid());
       this.form.get(["status"])?.setValue(this.convertToEnum());
       if (!this.isEdit()) {
         this.form.get(["id"])?.setValue(uuid());
+        this.form.get(["userId"])?.setValue(this._authService.getTokenId());
       }
       this._toDoService.save(this.form.value, this.isEdit()).subscribe(
         success => {

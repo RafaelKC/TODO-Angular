@@ -4,7 +4,8 @@
 
 export const environment = {
   production: false,
-  API: "https://localhost:9880/api",
+  API: "https://localhost:9881",
+  TOKEN: "todoAuthTokenKey_RKC"
 };
 
 /*

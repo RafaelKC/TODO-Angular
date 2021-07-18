@@ -18,18 +18,20 @@ namespace TODOWebBackend.Services
       _banco = db;
     }
 
-    public async Task<ActionResult<List<Todo>>> GetList()
+    public async Task<ActionResult<List<Todo>>> GetList(string userId)
     {
-      var todos = await _banco.Todos.Where(e => e.IsDelated != IsDeleted.Yes).ToListAsync();
+      var userGuid = Guid.Parse(userId);
+      var todos = await _banco.Todos.Where(e => e.IsDelated != IsDeleted.Yes && e.UserId == userGuid).ToListAsync();
       return todos;
     }
 
-    public async Task<ActionResult<Todo>> GetById(string id)
+    public async Task<ActionResult<Todo>> GetById(string id, string userId)
     {
+      var userGuid = Guid.Parse(userId);
       var guid = Guid.Parse(id);
       var todo = await _banco.Todos
         .AsNoTracking()
-        .FirstOrDefaultAsync(e => e.Id == guid);
+        .FirstOrDefaultAsync(e => e.Id == guid && e.UserId == userGuid);
 
       return todo;
     }
