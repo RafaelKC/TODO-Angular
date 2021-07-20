@@ -23,7 +23,7 @@ namespace TODOWebBackend
 
         public void ConfigureServices(IServiceCollection services)
         {
-
+            string stringConexao = "Server=localhost;DataBase=RafaelChicovis_ToDo;Uid=root;Pwd=M@st3rBl@st3r";
             services.AddDbContext<DataContext>(options =>
             options.UseMySQL(stringConexao));
             services.AddCors(options =>
@@ -31,7 +31,7 @@ namespace TODOWebBackend
               options.AddPolicy(name: "mypolicy",
                 builder =>
                 {
-                  builder.WithOrigins("http://localhost:4200").AllowAnyHeader().AllowAnyMethod();
+                  builder.WithOrigins("http://localhost:2400").AllowAnyHeader().AllowAnyMethod();
                 });
             });
             services.AddControllers();

@@ -2,5 +2,6 @@
 
 export interface  LoginResponse {
   "user": User | null;
-  "token": string | null;
+  "token"?: string | null;
+  "valid"?: boolean | null;
 }

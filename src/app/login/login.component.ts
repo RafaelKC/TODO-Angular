@@ -21,6 +21,7 @@ export class LoginComponent implements OnInit {
 
 
   ngOnInit(): void {
+    this._authService.showMenuEmitter.emit(false);
     this.formLogin = this._formBuilder.group({
       email: [null, [ Validators.required, Validators.email ]],
       password: [null, [ Validators.required]]

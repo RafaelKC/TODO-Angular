@@ -12,12 +12,12 @@ import jwt_decode from "jwt-decode";
 })
 export class AuthService {
 
-  showMenuEmitter = new EventEmitter<boolean>();
-  currentUser?: LoginResponse;
+  showMenuEmitter = new EventEmitter<boolean | null | undefined>();
+  currentUser = new EventEmitter<User | null | undefined>();
 
   constructor(
     private _router: Router,
-    private _http: HttpClient
+    private _http: HttpClient,
   ) {}
 
   async login(user: User){
@@ -32,7 +32,7 @@ export class AuthService {
     }
   }
 
-  async isAuth(): Promise<boolean>{
+  async isAuth(): Promise<boolean | null | undefined>{
     const token = this.getAuthorizationToken();
     if(!token) {
       this.exit();
@@ -41,9 +41,11 @@ export class AuthService {
       this.exit();
       return false;
     }
-    const result = await this._http.get<boolean>('api/user/tokenIsValid').toPromise();
-    console.log(result);
-    return (result);
+    const result = await this._http.get<LoginResponse>('api/user/tokenIsValid').toPromise();
+    const user = result.user;
+    this.currentUser.emit(user);
+    this.showMenuEmitter.emit(result.valid);
+    return (result.valid);
   }
 
   exit(){
