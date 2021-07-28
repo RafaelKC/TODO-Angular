@@ -5,6 +5,8 @@ import { ExitComponent } from './exit.component';
 import { AuthGuard } from './guards/auth.guard';
 import { LoginComponent } from './login/login.component';
 import { NotFoundedComponent } from './not-founded/not-founded.component';
+import {NewUserComponent} from "./login/new-user/new-user.component";
+import {NewUserGuard} from "./login/new-user/new-user.guard";
 
 
 const routes: Routes = [
@@ -13,6 +15,11 @@ const routes: Routes = [
   },
   {
     path: "login", component: LoginComponent,
+    canLoad: [NewUserGuard]
+  },
+  {
+      path: "new-user", component: NewUserComponent,
+    canLoad: [NewUserGuard]
   },
   {
     path: "exit", component: ExitComponent,
@@ -22,7 +29,7 @@ const routes: Routes = [
     path: 'not-found', component: NotFoundedComponent,
   },
   {
-    path: 'to-do', 
+    path: 'to-do',
     canActivate: [AuthGuard],
     canLoad: [AuthGuard],
     loadChildren: () => import('./to-do/to-do.module').then(m => m.ToDoModule)

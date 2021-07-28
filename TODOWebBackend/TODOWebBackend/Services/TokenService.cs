@@ -22,7 +22,7 @@ namespace TODOWebBackend.Services
           new Claim(ClaimTypes.Email, user.Email.ToString()),
           new Claim(ClaimTypes.Role, user.Id.ToString())
         }),
-        Expires = DateTime.UtcNow.AddHours(2),
+        Expires = DateTime.UtcNow.AddDays(3),
         SigningCredentials =  new SigningCredentials(
             new SymmetricSecurityKey(key),
             SecurityAlgorithms.HmacSha256Signature)

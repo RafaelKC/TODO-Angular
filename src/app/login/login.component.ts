@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { AuthService } from "./auth.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-login',
@@ -16,7 +17,8 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private _formBuilder: FormBuilder,
-    private _authService: AuthService
+    private _authService: AuthService,
+    private _router: Router,
   ) { }
 
 
@@ -63,6 +65,10 @@ export class LoginComponent implements OnInit {
       return 'is-invalid';
     }
     return '';
+  }
+
+  onNewUser(){
+    this._router.navigate(['/new-user'])
   }
 
 }

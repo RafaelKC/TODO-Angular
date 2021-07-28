@@ -11,7 +11,6 @@ import { ToDo2Service } from '../to-do2.service';
 import { v4 as uuid } from 'uuid';
 import {TodoStatus} from "../todo-status";
 import {AuthService} from "../../login/auth.service";
-import { User } from 'src/app/login/models/User';
 
 @Component({
   selector: 'app-to-do-form',

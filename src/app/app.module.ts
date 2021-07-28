@@ -11,13 +11,15 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { ExitComponent } from './exit.component';
 import { NotFoundedComponent } from './not-founded/not-founded.component';
 import {httpInterceptorsProvider} from "./http-interceptors";
+import { NewUserComponent } from './login/new-user/new-user.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     ExitComponent,
-    NotFoundedComponent
+    NotFoundedComponent,
+    NewUserComponent
   ],
   imports: [
     BrowserModule,

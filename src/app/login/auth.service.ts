@@ -32,7 +32,7 @@ export class AuthService {
     }
   }
 
-  async isAuth(): Promise<boolean | null | undefined>{
+  async isAuth(): Promise<boolean>{
     const token = this.getAuthorizationToken();
     if(!token) {
       this.exit();
@@ -44,8 +44,8 @@ export class AuthService {
     const result = await this._http.get<LoginResponse>('api/user/tokenIsValid').toPromise();
     const user = result.user;
     this.currentUser.emit(user);
-    this.showMenuEmitter.emit(result.valid);
-    return (result.valid);
+    this.showMenuEmitter.emit(true);
+    return !!result.valid;
   }
 
   exit(){
@@ -105,6 +105,18 @@ export class AuthService {
       return !(date.valueOf() > new Date().valueOf());
     }
     return true;
+  }
+
+  async newUser(user :User) {
+    const result = await this._http.post<LoginResponse>('api/user/new', user).toPromise();
+    if(result && result.user && result.token) {
+      this.changeAuth(true,`Bearer ${result.token}`);
+      await this._router.navigate(['/']);
+      return true;
+    } else {
+      this.changeAuth(false)
+      return false;
+    }
   }
 
 }

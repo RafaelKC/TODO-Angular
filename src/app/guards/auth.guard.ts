@@ -3,7 +3,6 @@ import { CanActivate, CanDeactivate, CanLoad, Route, UrlSegment, ActivatedRouteS
 import { Observable } from 'rxjs';
 
 import { AuthService } from '../login/auth.service';
-import { AlertModalService } from '../shared/services/alert-modal.service';
 import { ToDoFormComponent } from '../to-do/to-do-form/to-do-form.component';
 
 @Injectable({
@@ -32,10 +31,11 @@ export class AuthGuard implements CanActivate, CanDeactivate<ToDoFormComponent>,
     nextState?: RouterStateSnapshot): Observable<boolean> | boolean {
     return component.canExit();
   }
-  canLoad(
+  async canLoad(
     route: Route,
-    segments: UrlSegment[]): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    if (this._authService.isAuth()) {
+    segments: UrlSegment[]): Promise<boolean> {
+    const isAuth = await this._authService.isAuth();
+    if (isAuth) {
       return true;
     } else {
       this._router.navigate(['/login']);

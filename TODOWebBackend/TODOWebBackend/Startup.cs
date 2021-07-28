@@ -23,7 +23,7 @@ namespace TODOWebBackend
 
         public void ConfigureServices(IServiceCollection services)
         {
-            string stringConexao = "Server=localhost;DataBase=RafaelChicovis_ToDo;Uid=root;Pwd=M@st3rBl@st3r";
+            string stringConexao = "Server=localhost;DataBase=RafaelChicovis_ToDo;Uid=root;Pwd=";
             services.AddDbContext<DataContext>(options =>
             options.UseMySQL(stringConexao));
             services.AddCors(options =>
