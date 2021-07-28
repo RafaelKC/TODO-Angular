@@ -1,0 +1,33 @@
+<div style="margin-top: 150px" [formGroup]="form">
+  <h3 style="font-weight: bold">Novo usuário</h3>
+  <form>
+    <label for="primeiroNome">Nome</label>
+    <div id="primeiroNome" class="row">
+      <div class="col">
+        <input formControlName="primeiroNome" type="text" class="form-control" placeholder="Primeiro nome">
+      </div>
+      <div class="col">
+        <input formControlName="segundoNome" type="text" class="form-control" placeholder="Último nome">
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col">
+        <label for="login">Login</label>
+        <input id="login" formControlName="login" type="text" class="form-control" placeholder="Login">
+      </div>
+      <div class="col">
+        <label for="email">Email</label>
+        <input id="email" formControlName="email" type="email" class="form-control" placeholder="Email">
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="password">Senha</label>
+      <input type="password" class="form-control" id="password" formControlName="password">
+    </div>
+
+    <button (click)="onSubmit()" type="submit" class="btn btn-primary">Criar
+    </button>
+  </form>
+</div>
