@@ -1,5 +1,5 @@
 FROM node:14-alpine as angular
-ENV NODE_ENV=production
+ENV NODE_ENV=dev
 WORKDIR /app
 COPY package.json /app
 RUN npm install --silent
