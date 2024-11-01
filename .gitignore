@@ -44,3 +44,7 @@ testem.log
 # System Files
 .DS_Store
 Thumbs.db
+
+./TODOWebBackend/.idea/
+./TODOWebBackend/TODOWebBackend/bin/
+./TODOWebBackend/TODOWebBackend/obj/
