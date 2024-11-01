@@ -8,6 +8,7 @@ import {ToDo} from '../to-do';
 
 import {ToDoService} from '../to-do.service';
 import {TodoStatus} from "../todo-status";
+import {ToDo2Service} from "../to-do2.service";
 
 @Component({
   selector: 'app-view',
@@ -22,7 +23,7 @@ export class ViewComponent implements OnInit {
 
   constructor(
     private _route: ActivatedRoute,
-    private _toDoService: ToDoService,
+    private _toDoService: ToDo2Service,
     private _router: Router,
     private _alertService: AlertModalService,
   ) { }
@@ -48,7 +49,7 @@ export class ViewComponent implements OnInit {
     this.queryField.valueChanges.subscribe(
       (value: boolean) => {
         this.toDo.checked = value
-        this._toDoService.save(this.toDo).subscribe()
+        this._toDoService.save(this.toDo, true).subscribe()
       }
     )
 

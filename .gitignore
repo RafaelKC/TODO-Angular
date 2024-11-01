@@ -48,3 +48,9 @@ Thumbs.db
 ./TODOWebBackend/.idea/
 ./TODOWebBackend/TODOWebBackend/bin/
 ./TODOWebBackend/TODOWebBackend/obj/
+
+/bin/
+/.idea/
+/obj/
+/.vscode/
+
