@@ -1,0 +1,90 @@
+{
+  "format": 1,
+  "restore": {
+    "/home/rafaelchicovis/git/TODO-Angular/TODOWebBackend/TODOWebBackend/TODOWebBackend.csproj": {}
+  },
+  "projects": {
+    "/home/rafaelchicovis/git/TODO-Angular/TODOWebBackend/TODOWebBackend/TODOWebBackend.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/home/rafaelchicovis/git/TODO-Angular/TODOWebBackend/TODOWebBackend/TODOWebBackend.csproj",
+        "projectName": "TODOWebBackend",
+        "projectPath": "/home/rafaelchicovis/git/TODO-Angular/TODOWebBackend/TODOWebBackend/TODOWebBackend.csproj",
+        "packagesPath": "/home/rafaelchicovis/.nuget/packages/",
+        "outputPath": "/home/rafaelchicovis/git/TODO-Angular/TODOWebBackend/TODOWebBackend/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/home/rafaelchicovis/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "dependencies": {
+            "Microsoft.AspNetCore.Authentication": {
+              "target": "Package",
+              "version": "[2.2.0, )"
+            },
+            "Microsoft.AspNetCore.Authentication.JwtBearer": {
+              "target": "Package",
+              "version": "[3.0.0, )"
+            },
+            "Microsoft.AspNetCore.Cors": {
+              "target": "Package",
+              "version": "[2.0.1, )"
+            },
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[5.0.7, )"
+            },
+            "MySql.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[5.0.3.1, )"
+            },
+            "Swashbuckle.AspNetCore": {
+              "target": "Package",
+              "version": "[5.6.3, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.AspNetCore.App": {
+              "privateAssets": "none"
+            },
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/lib/dotnet/sdk/8.0.110/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}
