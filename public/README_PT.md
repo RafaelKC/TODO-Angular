@@ -1,12 +1,12 @@
 
-[In English](./README.md) | [Em Português](./public/README_PT.md)
+[In English](../README.md) | [Em Português](./README_PT.md)
 
 | <img src="https://raw.githubusercontent.com/RafaelKC/TODO-Angular/refs/heads/main/public/login.png" /> | <img src="https://raw.githubusercontent.com/RafaelKC/TODO-Angular/refs/heads/main/public/sing-in.png" /> |
 | ------------------------------------------------------------------------------------------------------ | -------------------------------------------------------------------------------------------------------- |
 | <img src="https://raw.githubusercontent.com/RafaelKC/TODO-Angular/refs/heads/main/public/main.png" />  | <img src="https://raw.githubusercontent.com/RafaelKC/TODO-Angular/refs/heads/main/public/new.png" />     |
 | <img src="https://raw.githubusercontent.com/RafaelKC/TODO-Angular/refs/heads/main/public/view.png" />  | <img src="https://raw.githubusercontent.com/RafaelKC/TODO-Angular/refs/heads/main/public/edit.png" />    |
-[TODOAngular](https://github.com/RafaelKC/TODO-Angular) is a simple application for creating to-do lists, with tasks categorized by "To Do," "Doing," and "Done" statuses. This was my first project in Angular, which I developed for an internship application. I was accepted, and it became my first professional programming experience! I learned Angular through [Loiane Groner](https://www.linkedin.com/in/loiane/)'s [Angular Course](https://loiane.training/curso/angular).
+[TODOAngular](https://github.com/RafaelKC/TODO-Angular) é um simples aplicativo para criar listas de afazeres, com categorização por "A fazer", "Fazendo" e "Feito". Esse foi meu primeiro projeto em Angular, desenvolvido para uma aplicação de estágio. Eu passei, e essa foi minha primeira experiência profissional com programação! Aprendi Angular através do [Curso de Angular](https://loiane.training/curso/angular) da [Loiane Groner](https://www.linkedin.com/in/loiane/).
 
-Later, I built a .NET backend for the application, as initially, all data was stored in JSON files.
+Algum tempo depois, fiz um backend em .NET para a aplicação, que inicialmente armazenava tudo em um arquivo JSON.
 
-[On GitHub](https://github.com/RafaelKC/TODO-Angular)
+[No GitHub](https://github.com/RafaelKC/TODO-Angular)
